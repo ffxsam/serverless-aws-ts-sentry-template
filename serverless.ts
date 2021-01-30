@@ -11,10 +11,16 @@ const serverlessConfiguration: AWS = {
       includeModules: true
     }
   },
+  useDotenv: true,
+  package: {
+    individually: true,
+  },
   plugins: ['serverless-webpack'],
   provider: {
     name: 'aws',
     runtime: 'nodejs12.x',
+    versionFunctions: false,
+    stage: '${opt:stage, "dev"}',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -23,6 +29,9 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
     lambdaHashingVersion: '20201221',
+    tracing: {
+      lambda: true,
+    },
   },
   functions: { hello }
 }

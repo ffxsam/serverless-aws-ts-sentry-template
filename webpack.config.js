@@ -2,6 +2,7 @@ const path = require('path');
 const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const SentryCliPlugin = require('@sentry/webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -22,6 +23,7 @@ module.exports = {
     libraryTarget: 'commonjs',
     path: path.join(__dirname, '.webpack'),
     filename: '[name].js',
+    devtoolModuleFilenameTemplate: 'app:///[resource-path]',
   },
   optimization: {
     concatenateModules: false,
@@ -48,5 +50,12 @@ module.exports = {
       },
     ],
   },
-  plugins: [],
+  plugins: [
+    new SentryCliPlugin({
+      org: 'YOUR ORG HERE',
+      project: 'YOUR PROJECT HERE',
+      // release is automatic, no need to include here
+      include: './.webpack',
+    }),
+  ],
 };
