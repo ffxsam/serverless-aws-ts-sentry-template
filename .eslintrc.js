@@ -31,7 +31,7 @@ module.exports = {
     'dot-notation': 'error',
     eqeqeq: 'warn',
     'key-spacing': 'error',
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: ['error', 2, { SwitchCase: 1, offsetTernaryExpressions: true }],
     'max-len': [
       'warn',
       {
@@ -102,6 +102,7 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
+        offsetTernaryExpressions: true,
         ignoredNodes: ['TSTypeParameterInstantiation'],
       },
     ],
